@@ -1,0 +1,34 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+int arr[200][200];
+bool visited[200];
+
+void dfs(int k, int len){
+    visited[k] = true;
+    for(int i = 0 ; i < len ; i++){
+        if(arr[k][i] == 1 && visited[i] == false){
+            dfs(i,len);
+        }
+    }
+}
+
+int solution(int n, vector<vector<int>> computers) {
+    int answer = 0;
+    
+    for(int i = 0 ; i < n ; i++){
+        for(int j = 0 ; j < n ;j++){
+            arr[i][j]= computers[i][j];
+            if(i==j)
+                arr[i][j] =0;
+        }
+    }
+    for(int i = 0 ; i < n ; i++){
+        if(visited[i]==false){
+            dfs(i,n);
+            answer++;
+        }
+    }
+    return answer;
+}

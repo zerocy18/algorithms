@@ -1,0 +1,21 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+int cnt;
+void dfs(int n, int len,int sum,int target,vector<int> numb){
+    if(n==len){
+        if(sum == target){
+            cnt++;
+        }
+        return;
+    }
+    dfs(n+1, len, sum+numb[n],target,numb);
+    dfs(n+1, len, sum-numb[n],target,numb);
+}
+
+int solution(vector<int> numbers, int target) {
+    int answer = 0;
+    dfs(0,numbers.size(),0,target,numbers);
+    return cnt;
+}

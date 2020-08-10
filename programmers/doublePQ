@@ -1,0 +1,44 @@
+#include <string>
+#include <vector>
+#include <deque>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(vector<string> operations) {
+    deque<int> deque;
+    vector<int> answer;
+    int in;
+    string instring;
+    for(int i = 0 ; i < operations.size(); i++){
+        if(operations[i][0] == 'I'){
+            instring = operations[i].substr(2);
+            in = stoi(instring);
+            deque.push_back(in);
+            sort(deque.begin(), deque.end());
+        }
+        else{
+            if(deque.empty()) continue;
+            instring = operations[i].substr(2);
+            in = stoi(instring);
+            if(in < 0){
+                deque.pop_front();
+            }
+            else{
+                deque.pop_back();
+            }
+        }
+    }
+    for(int i = 0 ; i < deque.size(); i++){
+        printf("%d ",deque[i] );
+    }
+    if(deque.empty()){
+        answer.push_back(0);
+        answer.push_back(0);
+    }
+    else{
+        answer.push_back(deque.back());
+        answer.push_back(deque.front());
+    }
+    return answer;
+}
